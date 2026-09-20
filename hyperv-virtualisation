@@ -47,3 +47,13 @@ Sanal makinelerin getirdiği kaynak yükünü (RAM/CPU) hafifletmek ve uygulama 
 Güvenlik politikaları gereği, Docker depoları resmi GPG anahtarları ile sisteme tanıtıldı.
 
 Root yetkisi kısıtlanarak, kullanıcının Docker soketine güvenli erişimi (docker group) sağlandı.
+
+Faz 2: Zafiyet Yönetimi (Vulnerability Management)
+
+Konteynırların güvenliğini sağlamak ve "Supply Chain" (Tedarik Zinciri) saldırılarını önlemek amacıyla zafiyet taraması (Vulnerability Scanning) süreçleri laboratuvara entegre edildi.
+
+Trivy Entegrasyonu: Endüstri standardı olan Aqua Security Trivy, sistemi kirletmemesi adına "geçici bir konteynır" (ephemeral container) olarak çalıştırıldı (--rm parametresi ile).
+
+Docker Socket Köprülemesi: Trivy konteynırına host üzerindeki /var/run/docker.sock bağlanarak, makinedeki diğer imajları analiz edebilmesi sağlandı.
+
+Örnek Vaka (Nginx): Standart nginx imajı taranarak CVE tabanlı güvenlik açıkları (HIGH/CRITICAL seviyeleri) raporlandı.
